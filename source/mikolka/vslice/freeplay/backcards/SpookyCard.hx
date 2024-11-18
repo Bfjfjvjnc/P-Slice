@@ -28,6 +28,7 @@ import flixel.addons.display.FlxBackdrop;
 import mikolka.compatibility.FreeplayHelpers;
 
 import mikolka.compatibility.FunkinPath as Paths;
+
 class SpookyCard extends BackingCard
 {
   var topCandyRow:FlxBackdrop;
