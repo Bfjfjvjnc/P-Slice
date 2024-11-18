@@ -1,4 +1,4 @@
-package funkin.ui.freeplay.backcards;
+package mikolka.vslice.freeplay.backcards;
 
 import funkin.ui.freeplay.FreeplayState;
 import flash.display.BitmapData;
