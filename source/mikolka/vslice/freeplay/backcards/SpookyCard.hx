@@ -26,6 +26,8 @@ import funkin.graphics.shaders.AdjustColorShader;
 import flixel.addons.display.FlxTiledSprite;
 import flixel.addons.display.FlxBackdrop;
 
+import mikolka.compatibility.FreeplayHelpers;
+
 class SpookyCard extends BackingCard
 {
   var topCandyRow:FlxBackdrop;
