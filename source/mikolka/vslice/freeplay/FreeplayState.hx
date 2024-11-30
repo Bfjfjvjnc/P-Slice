@@ -279,10 +279,12 @@ class FreeplayState extends MusicBeatSubstate
 		{
 			case(PlayerRegistry.instance.hasNewCharacter()) => true:
 				backingCard = new NewCharacterCard(currentCharacter);
-			case 'bf':
-				backingCard = new BoyfriendCard(currentCharacter);
-			case 'pico':
-				backingCard = new PicoCard(currentCharacter);
+                              case 'bf':
+                                backingCard = new BoyfriendCard(currentCharacter);
+                              case 'pico':
+                                backingCard = new PicoCard(currentCharacter);
+                              case 'spooky':
+                                backingCard = new SpookyCard(currentCharacter);
 			default:
 				backingCard = new BackingCard(currentCharacter);
 		}
