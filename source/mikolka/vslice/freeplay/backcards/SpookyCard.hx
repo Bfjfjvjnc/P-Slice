@@ -1,31 +1,14 @@
 package mikolka.vslice.freeplay.backcards;
 
-import funkin.ui.freeplay.FreeplayState;
-import flash.display.BitmapData;
-import flixel.FlxCamera;
+import flixel.addons.display.FlxBackdrop;
+import mikolka.compatibility.FreeplayHelpers;
 import flixel.math.FlxMath;
 import flixel.FlxSprite;
-import flixel.group.FlxGroup;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
-import flixel.math.FlxAngle;
-import flixel.math.FlxPoint;
-import flixel.text.FlxText;
-import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxSpriteUtil;
-import flixel.util.FlxTimer;
-import funkin.graphics.adobeanimate.FlxAtlasSprite;
-import funkin.graphics.FunkinSprite;
-import funkin.ui.freeplay.charselect.PlayableCharacter;
-import funkin.ui.MusicBeatSubState;
 import openfl.display.BlendMode;
 import flixel.group.FlxSpriteGroup;
-import funkin.graphics.shaders.AdjustColorShader;
-import flixel.addons.display.FlxTiledSprite;
-import flixel.addons.display.FlxBackdrop;
-import mikolka.compatibility.FreeplayHelpers;
 
 import mikolka.compatibility.FunkinPath as Paths;
 
@@ -50,23 +33,37 @@ class SpookyCard extends BackingCard
     super.applyExitMovers(exitMovers, exitMoversCharSel);
     if (exitMovers == null || exitMoversCharSel == null) return;
 
-    exitMoversCharSel.set([topCandyRow],
+    exitMoversCharSel.set([scrollTop],
       {
         y: -90,
         speed: 0.8,
         wait: 0.1
       });
 
-    exitMoversCharSel.set([lowCandyRow],
+    exitMoversCharSel.set([scrollMiddle],
       {
         y: -80,
         speed: 0.8,
         wait: 0.1
       });
 
-    exitMoversCharSel.set([backLines],
+    exitMoversCharSel.set([blueBar],
       {
         y: -70,
+        speed: 0.8,
+        wait: 0.1
+      });
+
+    exitMoversCharSel.set([scrollLower],
+      {
+        y: -60,
+        speed: 0.8,
+        wait: 0.1
+      });
+
+    exitMoversCharSel.set([scrollBack],
+      {
+        y: -50,
         speed: 0.8,
         wait: 0.1
       });
@@ -85,29 +82,59 @@ class SpookyCard extends BackingCard
     confirmGlow.visible = false;
     confirmGlow2.visible = false;
 
-    backLines = new FlxSprite(-27, 193).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
-    add(backLines);
+    scrollBack = new FlxBackdrop(Paths.image('freeplay/backingCards/pico/lowerLoop'), X, 20);
+    scrollBack.setPosition(0, 200);
+    scrollBack.flipX = true;
+    scrollBack.alpha = 0.39;
+    scrollBack.velocity.x = 110;
+    add(scrollBack);
 
-    topCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow1'), X, 20);
-    topCandyRow.setPosition(0, 165);
-    topCandyRow.velocity.x = -200;
-    add(topCandyRow);
+    scrollLower = new FlxBackdrop(Paths.image('freeplay/backingCards/pico/lowerLoop'), X, 20);
+    scrollLower.setPosition(0, 406);
+    scrollLower.velocity.x = -110;
+    add(scrollLower);
 
-    lowCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow2'), X, 15);
-    lowCandyRow.setPosition(0, 340);
-    add(lowCandyRow);
-    lowCandyRow.velocity.x = 200;
+    blueBar = new FlxSprite(0, 239).loadGraphic(Paths.image('freeplay/backingCards/pico/blueBar'));
+    blueBar.blend = BlendMode.MULTIPLY;
+    blueBar.alpha = 0.4;
+    add(blueBar);
 
-    glow = new FlxSprite(-280, 400).loadGraphic(Paths.image('freeplay/backingCards/spooky/spookyGlow'));
-    glow.blend = BlendMode.MULTIPLY;
+    scrollTop = new FlxBackdrop(null, X, 20);
+    scrollTop.setPosition(0, 80);
+    scrollTop.velocity.x = -220;
+
+    scrollTop.frames = Paths.getSparrowAtlas('freeplay/backingCards/pico/topLoop');
+    scrollTop.animation.addByPrefix('uzi', 'uzi info', 24, false);
+    scrollTop.animation.addByPrefix('sniper', 'sniper info', 24, false);
+    scrollTop.animation.addByPrefix('rocket launcher', 'rocket launcher info', 24, false);
+    scrollTop.animation.addByPrefix('rifle', 'rifle info', 24, false);
+    scrollTop.animation.addByPrefix('base', 'base', 24, false);
+    scrollTop.animation.play('base');
+
+    add(scrollTop);
+
+    scrollMiddle = new FlxBackdrop(Paths.image('freeplay/backingCards/pico/middleLoop'), X, 15);
+    scrollMiddle.setPosition(0, 346);
+    add(scrollMiddle);
+    scrollMiddle.velocity.x = 220;
+
+    glowDark = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/backingCards/pico/glow'));
+    glowDark.blend = BlendMode.MULTIPLY;
+    add(glowDark);
+
+    glow = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/backingCards/pico/glow'));
+    glow.blend = BlendMode.ADD;
     add(glow);
 
-    backLines.visible = false;
-    topCandyRow.visible = false;
-    lowCandyRow.visible = false;
+    blueBar.visible = false;
+    scrollBack.visible = false;
+    scrollLower.visible = false;
+    scrollTop.visible = false;
+    scrollMiddle.visible = false;
     glow.visible = false;
+    glowDark.visible = false;
 
-    confirmAtlas = new FlxAtlasSprite(3, 55, Paths.animateAtlas("freeplay/backingCards/spooky/spooky-confirm"));
+    confirmAtlas = new FlxAtlasSprite(5, 55, Paths.animateAtlas("freeplay/backingCards/pico/pico-confirm"));
     confirmAtlas.visible = false;
     add(confirmAtlas);
 
@@ -188,21 +215,31 @@ class SpookyCard extends BackingCard
   var beatFreq:Int = 1;
   var beatFreqList:Array<Int> = [1, 2, 4, 8];
 
-  public override function beatHit():Void
+  public override function beatHit(curBeat:Int):Void
   {
     // increases the amount of beats that need to go by to pulse the glow because itd flash like craazy at high bpms.....
-    beatFreq = beatFreqList[Math.floor(Conductor.instance.bpm / 140)];
+    beatFreq = beatFreqList[Math.floor(FreeplayHelpers.BPM / 140)];
 
-    if (Conductor.instance.currentBeat % beatFreq != 0) return;
+    if (curBeat % beatFreq != 0) return;
+    FlxTween.cancelTweensOf(glow);
+    FlxTween.cancelTweensOf(glowDark);
+
+    glow.alpha = 1;
+    FlxTween.tween(glow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
+    glowDark.alpha = 0;
+    FlxTween.tween(glowDark, {alpha: 1}, 18 / 24, {ease: FlxEase.quartOut});
   }
 
   public override function introDone():Void
   {
-    pinkBack.color = 0xFF6620AD;
+    pinkBack.color = 0xFF98A2F3;
 
-    backLines.visible = true;
-    topCandyRow.visible = true;
-    lowCandyRow.visible = true;
+    blueBar.visible = true;
+    scrollBack.visible = true;
+    scrollLower.visible = true;
+    scrollTop.visible = true;
+    scrollMiddle.visible = true;
+    glowDark.visible = true;
     glow.visible = true;
 
     cardGlow.visible = true;
@@ -213,9 +250,12 @@ class SpookyCard extends BackingCard
   {
     FlxTween.color(pinkBack, 0.25, 0xFF98A2F3, 0xFFFFD0D5, {ease: FlxEase.quadOut});
 
-    backLines.visible = false;
-    topCandyRow.visible = false;
-    lowCandyRow.visible = false;
+    blueBar.visible = false;
+    scrollBack.visible = false;
+    scrollLower.visible = false;
+    scrollTop.visible = false;
+    scrollMiddle.visible = false;
+    glowDark.visible = false;
     glow.visible = false;
 
     cardGlow.visible = true;
@@ -227,6 +267,29 @@ class SpookyCard extends BackingCard
   override public function update(elapsed:Float):Void
   {
     super.update(elapsed);
-    var scrollProgress:Float = Math.abs(topCandyRow.x % (topCandyRow.frameWidth + 20));
+    var scrollProgress:Float = Math.abs(scrollTop.x % (scrollTop.frameWidth + 20));
+
+    if (scrollTop.animation.curAnim.finished == true)
+    {
+      if (FlxMath.inBounds(scrollProgress, 500, 700) && scrollTop.animation.curAnim.name != 'sniper')
+      {
+        scrollTop.animation.play('sniper', true, false);
+      }
+
+      if (FlxMath.inBounds(scrollProgress, 700, 1300) && scrollTop.animation.curAnim.name != 'rifle')
+      {
+        scrollTop.animation.play('rifle', true, false);
+      }
+
+      if (FlxMath.inBounds(scrollProgress, 1450, 2000) && scrollTop.animation.curAnim.name != 'rocket launcher')
+      {
+        scrollTop.animation.play('rocket launcher', true, false);
+      }
+
+      if (FlxMath.inBounds(scrollProgress, 0, 300) && scrollTop.animation.curAnim.name != 'uzi')
+      {
+        scrollTop.animation.play('uzi', true, false);
+      }
+    }
   }
 }
