@@ -1,7 +1,7 @@
 package mikolka.vslice.freeplay.backcards;
 
 import mikolka.vslice.freeplay.FreeplayState;
-import package source.flixel.util.FlxTimer;
+import source.flixel.util.FlxTimer;
 import package source.mikolka.funkin.FlxAtlasSprite;
 import package source.mikolka.funkin.FunkinSprite;
 import package source.mikolka.funkin.players.PlayableCharacter;
