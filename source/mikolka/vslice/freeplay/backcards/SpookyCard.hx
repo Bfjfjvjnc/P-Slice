@@ -1,12 +1,12 @@
 package mikolka.vslice.freeplay.backcards;
 
 import mikolka.vslice.freeplay.FreeplayState;
-import flixel.util.FlxTimer;
-import funkin.FlxAtlasSprite;
-import funkin.FunkinSprite;
-import funkin.players.PlayableCharacter;
-import backend.MusicBeatSubState;
-import shaders.AdjustColorShader;
+import source.flixel.util.FlxTimer;
+import source.funkin.FlxAtlasSprite;
+import source.funkin.FunkinSprite;
+import source.funkin.players.PlayableCharacter;
+import source.backend.MusicBeatSubState;
+import source.shaders.AdjustColorShader;
 
 class SpookyCard extends BackingCard
 {
