@@ -89,8 +89,8 @@ class SpookyCard extends BackingCard
     scrollLower.velocity.x = -110;
     add(scrollLower);
 
-    freeplayLines.alpha = new FlxSprite(0, 239).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
-    freeplayLines.alpha.blend = BlendMode.MULTIPLY;
+    freeplayLines = new FlxSprite(0, 239).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
+    freeplayLines.blend = BlendMode.MULTIPLY;
     freeplayLines.alpha = 0.4;
     add(freeplayLines);
 
@@ -204,7 +204,7 @@ class SpookyCard extends BackingCard
     FlxTween.cancelTweensOf(spookyGlow);
     FlxTween.cancelTweensOf(glowDark);
 
-    glow.alpha = 1;
+    spookyGlow.alpha = 1;
     FlxTween.tween(spookyGlow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
     glowDark.alpha = 0;
     FlxTween.tween(glowDark, {alpha: 1}, 18 / 24, {ease: FlxEase.quartOut});
