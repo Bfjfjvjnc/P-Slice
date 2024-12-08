@@ -10,55 +10,44 @@ import flixel.util.FlxSpriteUtil;
 import openfl.display.BlendMode;
 import flixel.group.FlxSpriteGroup;
 
-import mikolka.compatibility.FunkinPath as Paths;
-
 class SpookyCard extends BackingCard
 {
-  var scrollBack:FlxBackdrop;
-  var scrollLower:FlxBackdrop;
-  var scrollMiddle:FlxBackdrop;
+  var topCandyRow:FlxBackdrop;
+  var lowCandyRow:FlxBackdrop;
 
-  var spookyGlow:FlxSprite;
-  var glowDark:FlxSprite;
-  var freeplayLines:FlxSprite;
+  var glow:FlxSprite;
+  var backLines:FlxSprite;
 
   var confirmAtlas:FlxAtlasSprite;
 
   public override function enterCharSel():Void
   {
-    FlxTween.tween(scrollBack.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
-    FlxTween.tween(scrollLower.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
-    FlxTween.tween(scrollMiddle.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
+    FlxTween.tween(topCandyRow.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
+    FlxTween.tween(lowCandyRow.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
   }
 
   public override function applyExitMovers(?exitMovers:FreeplayState.ExitMoverData, ?exitMoversCharSel:FreeplayState.ExitMoverData):Void
   {
     super.applyExitMovers(exitMovers, exitMoversCharSel);
     if (exitMovers == null || exitMoversCharSel == null) return;
-    exitMoversCharSel.set([scrollMiddle],
+
+    exitMoversCharSel.set([topCandyRow],
+      {
+        y: -90,
+        speed: 0.8,
+        wait: 0.1
+      });
+
+    exitMoversCharSel.set([lowCandyRow],
       {
         y: -80,
         speed: 0.8,
         wait: 0.1
       });
 
-    exitMoversCharSel.set([freeplayLines],
+    exitMoversCharSel.set([backLines],
       {
         y: -70,
-        speed: 0.8,
-        wait: 0.1
-      });
-
-    exitMoversCharSel.set([scrollLower],
-      {
-        y: -60,
-        speed: 0.8,
-        wait: 0.1
-      });
-
-    exitMoversCharSel.set([scrollBack],
-      {
-        y: -50,
         speed: 0.8,
         wait: 0.1
       });
@@ -77,44 +66,29 @@ class SpookyCard extends BackingCard
     confirmGlow.visible = false;
     confirmGlow2.visible = false;
 
-    scrollBack = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/lowerLoop'), X, 20);
-    scrollBack.setPosition(0, 200);
-    scrollBack.flipX = true;
-    scrollBack.alpha = 0.39;
-    scrollBack.velocity.x = 110;
-    add(scrollBack);
+    backLines = new FlxSprite(-27, 193).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
+    add(backLines);
 
-    scrollLower = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/lowerLoop'), X, 20);
-    scrollLower.setPosition(0, 406);
-    scrollLower.velocity.x = -110;
-    add(scrollLower);
+    topCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow1'), X, 20);
+    topCandyRow.setPosition(0, 165);
+    topCandyRow.velocity.x = -200;
+    add(topCandyRow);
 
-    freeplayLines = new FlxSprite(0, 239).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
-    freeplayLines.blend = BlendMode.MULTIPLY;
-    freeplayLines.alpha = 0.4;
-    add(freeplayLines);
+    lowCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow2'), X, 15);
+    lowCandyRow.setPosition(0, 340);
+    add(lowCandyRow);
+    lowCandyRow.velocity.x = 200;
 
-    scrollMiddle = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/middleLoop'), X, 15);
-    scrollMiddle.setPosition(0, 346);
-    add(scrollMiddle);
-    scrollMiddle.velocity.x = 220;
+    glow = new FlxSprite(-280, 400).loadGraphic(Paths.image('freeplay/backingCards/spooky/spookyGlow'));
+    glow.blend = BlendMode.MULTIPLY;
+    add(glow);
 
-    glowDark = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/backingCards/spooky/spookyGlow'));
-    glowDark.blend = BlendMode.MULTIPLY;
-    add(glowDark);
+    backLines.visible = false;
+    topCandyRow.visible = false;
+    lowCandyRow.visible = false;
+    glow.visible = false;
 
-    spookyGlow = new FlxSprite(-300, 330).loadGraphic(Paths.image('freeplay/backingCards/spooky/spookyGlow'));
-    spookyGlow.blend = BlendMode.ADD;
-    add(spookyGlow);
-
-    freeplayLines.visible = false;
-    scrollBack.visible = false;
-    scrollLower.visible = false;
-    scrollMiddle.visible = false;
-    spookyGlow.visible = false;
-    glowDark.visible = false;
-
-    confirmAtlas = new FlxAtlasSprite(5, 55, Paths.animateAtlas("freeplay/backingCards/spooky/spooky-confirm"));
+    confirmAtlas = new FlxAtlasSprite(3, 55, Paths.animateAtlas("freeplay/backingCards/spooky/spooky-confirm"));
     confirmAtlas.visible = false;
     add(confirmAtlas);
 
@@ -195,31 +169,22 @@ class SpookyCard extends BackingCard
   var beatFreq:Int = 1;
   var beatFreqList:Array<Int> = [1, 2, 4, 8];
 
-  public override function beatHit(curBeat:Int):Void
+  public override function beatHit():Void
   {
     // increases the amount of beats that need to go by to pulse the glow because itd flash like craazy at high bpms.....
-    beatFreq = beatFreqList[Math.floor(FreeplayHelpers.BPM / 140)];
+    beatFreq = beatFreqList[Math.floor(Conductor.instance.bpm / 140)];
 
-    if (curBeat % beatFreq != 0) return;
-    FlxTween.cancelTweensOf(spookyGlow);
-    FlxTween.cancelTweensOf(glowDark);
-
-    spookyGlow.alpha = 1;
-    FlxTween.tween(spookyGlow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
-    glowDark.alpha = 0;
-    FlxTween.tween(glowDark, {alpha: 1}, 18 / 24, {ease: FlxEase.quartOut});
+    if (Conductor.instance.currentBeat % beatFreq != 0) return;
   }
 
   public override function introDone():Void
   {
-    pinkBack.color = 0xFF98A2F3;
+    pinkBack.color = 0xFF6620AD;
 
-    freeplayLines.visible = true;
-    scrollBack.visible = true;
-    scrollLower.visible = true;
-    scrollMiddle.visible = true;
-    glowDark.visible = true;
-    spookyGlow.visible = true;
+    backLines.visible = true;
+    topCandyRow.visible = true;
+    lowCandyRow.visible = true;
+    glow.visible = true;
 
     cardGlow.visible = true;
     FlxTween.tween(cardGlow, {alpha: 0, "scale.x": 1.2, "scale.y": 1.2}, 0.45, {ease: FlxEase.sineOut});
@@ -229,16 +194,20 @@ class SpookyCard extends BackingCard
   {
     FlxTween.color(pinkBack, 0.25, 0xFF98A2F3, 0xFFFFD0D5, {ease: FlxEase.quadOut});
 
-    freeplayLines.visible = false;
-    scrollBack.visible = false;
-    scrollLower.visible = false;
-    scrollMiddle.visible = false;
-    glowDark.visible = false;
-    spookyGlow.visible = false;
+    backLines.visible = false;
+    topCandyRow.visible = false;
+    lowCandyRow.visible = false;
+    glow.visible = false;
 
     cardGlow.visible = true;
     cardGlow.alpha = 1;
     cardGlow.scale.set(1, 1);
     FlxTween.tween(cardGlow, {alpha: 0, "scale.x": 1.2, "scale.y": 1.2}, 0.25, {ease: FlxEase.sineOut});
+  }
+
+  override public function update(elapsed:Float):Void
+  {
+    super.update(elapsed);
+    var scrollProgress:Float = Math.abs(topCandyRow.x % (topCandyRow.frameWidth + 20));
   }
 }
