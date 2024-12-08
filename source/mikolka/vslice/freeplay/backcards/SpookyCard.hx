@@ -214,6 +214,6 @@ class SpookyCard extends BackingCard
   override public function update(elapsed:Float):Void
   {
     super.update(elapsed);
-    var scrollProgress:Float = Math.abs(topCandyRow.x % (topCandyRow.frameWidth + 20));
+    var scrollProgress:Float = Math.abs(scrollTop.x % (scrollTop.frameWidth + 20));
   }
 }
