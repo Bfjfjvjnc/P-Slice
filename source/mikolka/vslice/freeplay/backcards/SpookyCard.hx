@@ -178,12 +178,9 @@ class SpookyCard extends BackingCard
 
     if (curBeat % beatFreq != 0) return;
     FlxTween.cancelTweensOf(glow);
-    FlxTween.cancelTweensOf(glowDark);
 
     glow.alpha = 1;
     FlxTween.tween(glow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
-    glowDark.alpha = 0;
-    FlxTween.tween(glowDark, {alpha: 1}, 18 / 24, {ease: FlxEase.quartOut});
   }
 
   public override function introDone():Void
