@@ -10,8 +10,8 @@ import shaders.AdjustColorShader;
 
 class SpookyCard extends BackingCard
 {
-  var scrollLower:FlxBackdrop;
   var scrollTop:FlxBackdrop;
+  var scrollLower:FlxBackdrop;
 
   var glow:FlxSprite;
   var backLines:FlxSprite;
