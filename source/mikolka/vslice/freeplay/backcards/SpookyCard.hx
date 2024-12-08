@@ -77,7 +77,7 @@ class SpookyCard extends BackingCard
     confirmGlow.visible = false;
     confirmGlow2.visible = false;
 
-    scrollBack = new FlxBackdrop(Paths.image('freeplay/backingCards/pico/lowerLoop'), X, 20);
+    scrollBack = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/lowerLoop'), X, 20);
     scrollBack.setPosition(0, 200);
     scrollBack.flipX = true;
     scrollBack.alpha = 0.39;
