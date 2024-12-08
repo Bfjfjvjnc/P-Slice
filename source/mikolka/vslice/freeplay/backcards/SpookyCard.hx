@@ -10,10 +10,12 @@ import flixel.util.FlxSpriteUtil;
 import openfl.display.BlendMode;
 import flixel.group.FlxSpriteGroup;
 
+import mikolka.compatibility.FunkinPath as Paths;
+
 class SpookyCard extends BackingCard
 {
-  var topCandyRow:FlxBackdrop;
-  var lowCandyRow:FlxBackdrop;
+  var scrollTop:FlxBackdrop;
+  var scrollLower:FlxBackdrop;
 
   var glow:FlxSprite;
   var backLines:FlxSprite;
@@ -22,23 +24,23 @@ class SpookyCard extends BackingCard
 
   public override function enterCharSel():Void
   {
-    FlxTween.tween(topCandyRow.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
-    FlxTween.tween(lowCandyRow.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
+    FlxTween.tween(scrollTop.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
+    FlxTween.tween(scrollLower.velocity, {x: 0}, 0.8, {ease: FlxEase.sineIn});
   }
-
+  
   public override function applyExitMovers(?exitMovers:FreeplayState.ExitMoverData, ?exitMoversCharSel:FreeplayState.ExitMoverData):Void
   {
     super.applyExitMovers(exitMovers, exitMoversCharSel);
     if (exitMovers == null || exitMoversCharSel == null) return;
 
-    exitMoversCharSel.set([topCandyRow],
+    exitMoversCharSel.set([scrollTop],
       {
         y: -90,
         speed: 0.8,
         wait: 0.1
       });
 
-    exitMoversCharSel.set([lowCandyRow],
+    exitMoversCharSel.set([scrollLower],
       {
         y: -80,
         speed: 0.8,
@@ -69,23 +71,23 @@ class SpookyCard extends BackingCard
     backLines = new FlxSprite(-27, 193).loadGraphic(Paths.image('freeplay/backingCards/spooky/freeplayLines'));
     add(backLines);
 
-    topCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow1'), X, 20);
-    topCandyRow.setPosition(0, 165);
-    topCandyRow.velocity.x = -200;
-    add(topCandyRow);
+    scrollTop = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow1'), X, 20);
+    scrollTop.setPosition(0, 165);
+    scrollTop.velocity.x = -200;
+    add(scrollTop);
 
-    lowCandyRow = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow2'), X, 15);
-    lowCandyRow.setPosition(0, 340);
-    add(lowCandyRow);
-    lowCandyRow.velocity.x = 200;
+    scrollLower = new FlxBackdrop(Paths.image('freeplay/backingCards/spooky/candyRow2'), X, 15);
+    scrollLower.setPosition(0, 340);
+    scrollLower.velocity.x = 200;
+    add(scrollLower);
 
     glow = new FlxSprite(-280, 400).loadGraphic(Paths.image('freeplay/backingCards/spooky/spookyGlow'));
     glow.blend = BlendMode.MULTIPLY;
     add(glow);
 
     backLines.visible = false;
-    topCandyRow.visible = false;
-    lowCandyRow.visible = false;
+    scrollTop.visible = false;
+    scrollLower.visible = false;
     glow.visible = false;
 
     confirmAtlas = new FlxAtlasSprite(3, 55, Paths.animateAtlas("freeplay/backingCards/spooky/spooky-confirm"));
@@ -169,12 +171,19 @@ class SpookyCard extends BackingCard
   var beatFreq:Int = 1;
   var beatFreqList:Array<Int> = [1, 2, 4, 8];
 
-  public override function beatHit():Void
+  public override function beatHit(curBeat:Int):Void
   {
     // increases the amount of beats that need to go by to pulse the glow because itd flash like craazy at high bpms.....
-    beatFreq = beatFreqList[Math.floor(Conductor.instance.bpm / 140)];
+    beatFreq = beatFreqList[Math.floor(FreeplayHelpers.BPM / 140)];
 
-    if (Conductor.instance.currentBeat % beatFreq != 0) return;
+    if (curBeat % beatFreq != 0) return;
+    FlxTween.cancelTweensOf(glow);
+    FlxTween.cancelTweensOf(glowDark);
+
+    glow.alpha = 1;
+    FlxTween.tween(glow, {alpha: 0}, 16 / 24, {ease: FlxEase.quartOut});
+    glowDark.alpha = 0;
+    FlxTween.tween(glowDark, {alpha: 1}, 18 / 24, {ease: FlxEase.quartOut});
   }
 
   public override function introDone():Void
@@ -182,8 +191,8 @@ class SpookyCard extends BackingCard
     pinkBack.color = 0xFF6620AD;
 
     backLines.visible = true;
-    topCandyRow.visible = true;
-    lowCandyRow.visible = true;
+    scrollTop.visible = true;
+    scrollLower.visible = true;
     glow.visible = true;
 
     cardGlow.visible = true;
@@ -195,8 +204,8 @@ class SpookyCard extends BackingCard
     FlxTween.color(pinkBack, 0.25, 0xFF98A2F3, 0xFFFFD0D5, {ease: FlxEase.quadOut});
 
     backLines.visible = false;
-    topCandyRow.visible = false;
-    lowCandyRow.visible = false;
+    scrollTop.visible = false;
+    scrollLower.visible = false;
     glow.visible = false;
 
     cardGlow.visible = true;
