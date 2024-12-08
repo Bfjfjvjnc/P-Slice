@@ -34,7 +34,7 @@ class SpookyCard extends BackingCard
   public override function applyExitMovers(?exitMovers:FreeplayState.ExitMoverData, ?exitMoversCharSel:FreeplayState.ExitMoverData):Void
   {
     super.applyExitMovers(exitMovers, exitMoversCharSel);
-    if (exitMovers == null || exitMoversCharSel == 
+    if (exitMovers == null || exitMoversCharSel == null) return;
     exitMoversCharSel.set([scrollMiddle],
       {
         y: -80,
