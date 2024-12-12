@@ -2219,7 +2219,6 @@ class FreeplayState extends MusicBeatSubstate
 class DifficultySelector extends FlxSprite
 {
 	var controls:Controls;
-	var whiteShader:PureColor;
 
 	var parent:FreeplayState;
 
