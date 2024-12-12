@@ -261,7 +261,6 @@ class FreeplayState extends MusicBeatSubstate
 
 	var fadeShader:BlueFade = new BlueFade();
 
-	public var angleMaskShader:AngleMask = new AngleMask();
 
 	override function create():Void
 	{
