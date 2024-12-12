@@ -24,6 +24,10 @@ import mikolka.compatibility.FunkinPath as Paths;
 import mikolka.funkin.custom.VsliceSubState as MusicBeatSubstate;
 import openfl.utils.AssetCache;
 import mikolka.funkin.AtlasText;
+import shaders.PureColor;
+import shaders.HSVShader;
+import shaders.StrokeShader;
+import shaders.AngleMask;
 import mikolka.funkin.IntervalShake;
 import substates.StickerSubState;
 import mikolka.funkin.Scoring.ScoringRank;
@@ -261,6 +265,7 @@ class FreeplayState extends MusicBeatSubstate
 
 	var fadeShader:BlueFade = new BlueFade();
 
+	public var angleMaskShader:AngleMask = new AngleMask();
 
 	override function create():Void
 	{
@@ -2218,6 +2223,7 @@ class FreeplayState extends MusicBeatSubstate
 class DifficultySelector extends FlxSprite
 {
 	var controls:Controls;
+	var whiteShader:PureColor;
 
 	var parent:FreeplayState;
 
