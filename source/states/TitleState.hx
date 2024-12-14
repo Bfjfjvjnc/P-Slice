@@ -34,8 +34,6 @@ class TitleState extends MusicBeatState
   var lastBeat:Int = 0;
   var swagShader:ColorSwap;
 
-  var overlay:Sprite;
-
   override public function create():Void
   {
     super.create();
