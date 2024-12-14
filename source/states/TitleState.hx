@@ -54,7 +54,6 @@ class TitleState extends MusicBeatState
   }
 
   var logoBl:FlxSprite;
-  var outlineShaderShit:TitleOutline;
 
   var skidDance:FlxSprite;
   var pumpDance:FlxSprite;
