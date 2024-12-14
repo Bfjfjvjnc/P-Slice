@@ -53,14 +53,6 @@ class TitleState extends MusicBeatState
       startIntro();
   }
 
-  function overlay_onMouseDown(event:MouseEvent):Void
-  {
-    netStream.soundTransform.volume = 0.2;
-    netStream.soundTransform.pan = -1;
-
-    FlxG.stage.removeChild(overlay);
-  }
-
   var logoBl:FlxSprite;
   var outlineShaderShit:TitleOutline;
 
