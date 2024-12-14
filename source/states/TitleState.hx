@@ -162,8 +162,6 @@ class TitleState extends MusicBeatState
 
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
-	var skidDanceTitle:FlxSprite;
-	var pumpDanceTitle:FlxSprite;
 	var danceLeft:Bool = false;
 	var titleText:FlxSprite;
 	var swagShader:ColorSwap = null;
@@ -199,21 +197,9 @@ class TitleState extends MusicBeatState
 		gfDance.frames = Paths.getSparrowAtlas(characterImage);
 		if(!useIdle)
 		{
-			skidDanceTitle = new FlxSprite();
-skidDanceTitle.frames = Paths.getSparrowAtlas('skidDanceTitle');
-skidDanceTitle.animation.addByPrefix('idle', 'skidDance instance 1', 24, true);
-skidDanceTitle.animation.play('idle');
-FlxG.state.add(skidDanceTitle);
-skidDanceTitle.x = 60;
-skidDanceTitle.y = 285;
-
-pumpDanceTitle = new FlxSprite();
-pumpDanceTitle.frames = Paths.getSparrowAtlas('pumpDanceTitle');
-pumpDanceTitle.animation.addByPrefix('idle', 'pumpDance instance 1', 24, true);
-pumpDanceTitle.animation.play('idle');
-FlxG.state.add(pumpDanceTitle);
-pumpDanceTitle.x = 900;
-pumpDanceTitle.y = 275;
+			gfDance.animation.addByIndices('danceLeft', animationName, danceLeftFrames, "", 24, false);
+			gfDance.animation.addByIndices('danceRight', animationName, danceRightFrames, "", 24, false);
+			gfDance.animation.play('danceRight');
 		}
 		else
 		{
@@ -289,8 +275,6 @@ pumpDanceTitle.y = 275;
 		ngSpr.visible = false;
 		
 		add(gfDance);
-		add(pumpDanceTitle);
-		add(skidDanceTitle
 		add(logoBl); //FNF Logo
 		add(titleText); //"Press Enter to Begin" text
 		add(credGroup);
