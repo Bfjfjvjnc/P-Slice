@@ -24,6 +24,7 @@ class TankmanCard extends BackingCard
 {
   var confirmAtlas:FlxAtlasSprite;
 
+  var blueBar:FlxSprite;
   var darkBg:FlxSprite;
   var lightLayer:FlxSprite;
   var multiply1:FlxSprite;
@@ -78,6 +79,12 @@ class TankmanCard extends BackingCard
         x: -newUnlock3.width * 2,
         speed: 0.3
       });
+    exitMoversCharSel.set([blueBar],
+      {
+        y: -70,
+        speed: 0.8,
+        wait: 0.1
+      });
 
     exitMoversCharSel.set([friendFoe, newUnlock1, waiting, newUnlock2, friendFoe2, newUnlock3, multiplyBar], {
       y: -60,
@@ -90,6 +97,7 @@ class TankmanCard extends BackingCard
   {
     // pinkBack.color = 0xFFFFD863;
 
+    blueBar.visible = true;
     darkBg.visible = true;
     friendFoe.visible = true;
     newUnlock1.visible = true;
@@ -138,6 +146,11 @@ class TankmanCard extends BackingCard
     newUnlock2 = new BGScrollingText(-220, 331, 'FACE ME!', FlxG.width / 2, true, 80);
     friendFoe2 = new BGScrollingText(0, 402, 'NEWGROUNDS IS HOME TO ME', FlxG.width, true, 43);
     newUnlock3 = new BGScrollingText(0, 458, 'PICK A SONG ALREADY!', FlxG.width / 2, true, 80);
+
+    blueBar = new FlxSprite(0, 239).loadGraphic(Paths.image('freeplay/backingCards/tankman/blueBar'));
+    blueBar.blend = BlendMode.MULTIPLY;
+    blueBar.alpha = 0.4;
+    add(blueBar);
 
     darkBg = new FlxSprite(0, 0).loadGraphic(Paths.image('freeplay/backingCards/tankman/darkback'));
     add(darkBg);
@@ -199,6 +212,7 @@ class TankmanCard extends BackingCard
 
     add(cardGlow);
 
+    blueBar.visible = false;
     darkBg.visible = false;
     friendFoe.visible = false;
     newUnlock1.visible = false;
@@ -242,6 +256,7 @@ class TankmanCard extends BackingCard
   {
     FlxTween.color(pinkBack, 0.25, 0xFF05020E, 0xFFFFD0D5, {ease: FlxEase.quadOut});
 
+    blueBar.visible = false;
     darkBg.visible = false;
     friendFoe.visible = false;
     newUnlock1.visible = false;
