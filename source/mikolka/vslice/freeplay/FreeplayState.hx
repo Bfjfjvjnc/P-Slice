@@ -286,6 +286,8 @@ class FreeplayState extends MusicBeatSubstate
 				backingCard = new PicoCard(currentCharacter);
 		        case 'spooky':
 				backingCard = new SpookyCard(currentCharacter);
+			case 'tankman':
+				backingCard = new TankmanCard(currentCharacter);
 			default:
 				backingCard = new BackingCard(currentCharacter);
 		}
