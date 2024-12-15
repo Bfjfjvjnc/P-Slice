@@ -640,13 +640,13 @@ class TitleState extends MusicBeatState
 					#end
 					FlxG.sound.music.fadeIn(4, 0, 0.7);
 				case 2:
-					createCoolText(['Funkin Crew Inc', 'Shadow Mario', 'mikolka9144']);
+					createCoolText(['The', 'Spooky Mix', 'Team']);
 				case 4:
 					addMoreText('present');
 				case 5:
 					deleteCoolText();
 				case 6:
-					createCoolText(['Not associated', 'with'], -40);
+					createCoolText(['(Not) In association', 'with'], -40);
 				case 8:
 					addMoreText('newgrounds', -40);
 					ngSpr.visible = true;
@@ -660,11 +660,11 @@ class TitleState extends MusicBeatState
 				case 13:
 					deleteCoolText();
 				case 14:
-					addMoreText('Friday');
+					addMoreText('Fnf');
 				case 15:
-					addMoreText('Night');
+					addMoreText('Spooky Mix');
 				case 16:
-					addMoreText('Funkin'); // credTextShit.text += '\nFunkin';
+					addMoreText('Presents'); // credTextShit.text += '\nFunkin';
 
 				case 17:
 					skipIntro();
