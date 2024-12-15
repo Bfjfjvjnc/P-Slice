@@ -132,12 +132,12 @@ class TankmanCard extends BackingCard
     confirmGlow.visible = false;
     confirmGlow2.visible = false;
 
-    friendFoe = new BGScrollingText(0, 163, "COULD IT BE A NEW FRIEND? OR FOE??", FlxG.width, true, 43);
-    newUnlock1 = new BGScrollingText(-440, 215, 'NEW UNLOCK!', FlxG.width / 2, true, 80);
-    waiting = new BGScrollingText(0, 286, "SOMEONE'S WAITING!", FlxG.width / 2, true, 43);
-    newUnlock2 = new BGScrollingText(-220, 331, 'NEW UNLOCK!', FlxG.width / 2, true, 80);
-    friendFoe2 = new BGScrollingText(0, 402, 'COULD IT BE A NEW FRIEND? OR FOE??', FlxG.width, true, 43);
-    newUnlock3 = new BGScrollingText(0, 458, 'NEW UNLOCK!', FlxG.width / 2, true, 80);
+    friendFoe = new BGScrollingText(0, 163, "TANKMANS GREAT", FlxG.width, true, 43);
+    newUnlock1 = new BGScrollingText(-440, 215, 'TANKS ARE GREAT', FlxG.width / 2, true, 80);
+    waiting = new BGScrollingText(0, 286, "WHOS UP TANKING THERE BITCH!", FlxG.width / 2, true, 43);
+    newUnlock2 = new BGScrollingText(-220, 331, 'FACE ME!', FlxG.width / 2, true, 80);
+    friendFoe2 = new BGScrollingText(0, 402, 'NEWGROUNDS IS HOME TO ME', FlxG.width, true, 43);
+    newUnlock3 = new BGScrollingText(0, 458, 'PICK A SONG ALREADY!', FlxG.width / 2, true, 80);
 
     darkBg = new FlxSprite(0, 0).loadGraphic(Paths.image('freeplay/backingCards/tankman/darkback'));
     add(darkBg);
