@@ -16,8 +16,7 @@ class ParappaCard extends BackingCard
 {
   var darkRedDots:FlxSprite;
   var orangeDots:FlxSprite;
-  var parappaBackingCard:FlxSprite;
-  var YellowDots:FlxSprite;
+  var yellowdots:FlxSprite;
 
   var confirmAtlas:FlxAtlasSprite;
 
@@ -26,42 +25,25 @@ class ParappaCard extends BackingCard
     FlxTween.tween(pinkBack, {x: 0}, 0.6, {ease: FlxEase.quartOut});
     add(pinkBack);
 
-    confirmTextGlow.blend = BlendMode.ADD;
-    confirmTextGlow.visible = false;
-
-    confirmGlow.blend = BlendMode.ADD;
-
-    confirmGlow.visible = false;
-    confirmGlow2.visible = false;
-
-
-    parappaBackingCard = new FlxSprite(00, -20).loadGraphic(Paths.image('freeplay/backingCards/parappa/parappaBackingCard'));
-    FlxG.state.subState.insert(FlxG.state.subState.members.indexOf(FlxG.state.subState.dj), parappaBackingCard);
-    parappaBackingCard.scale.x = 1.05;
-    parappaBackingCard.cameras = [FlxG.state.subState.funnyCam];
-
-
-	 darkRedDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/DarkRedDots'));
+    darkRedDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/DarkRedDots'));
     FlxG.state.subState.insert(FlxG.state.subState.members.indexOf(FlxG.state.subState.dj), darkRedDots);
     darkRedDots.angle = 0;
     darkRedDots.cameras = [FlxG.state.subState.funnyCam];
 
-
-	 orangeDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/OrangeDots'));
+    orangeDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/OrangeDots'));
     FlxG.state.subState.insert(FlxG.state.subState.members.indexOf(FlxG.state.subState.dj), orangeDots);
     orangeDots.scale.x = 0.45;
     orangeDots.scale.y = 0.45;
     orangeDots.angle = 0;
     orangeDots.cameras = [FlxG.state.subState.funnyCam];
 
- 	YellowDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/YellowDots'));
+    YellowDots = new FlxSprite(-300, -150).loadGraphic(Paths.image('freeplay/backingCards/parappa/YellowDots'));
     FlxG.state.subState.insert(FlxG.state.subState.members.indexOf(FlxG.state.subState.dj), YellowDots);
     YellowDots.scale.x = 0.2;
     YellowDots.scale.y = 0.2;
     YellowDots.angle = 0;
     YellowDots.cameras = [FlxG.state.subState.funnyCam];
 
-    parappaBackingCard.visible = false;
     darkRedDots.visible = false;
     orangeDots.visible = false;
     YellowDots.visible = false;
@@ -160,7 +142,6 @@ class ParappaCard extends BackingCard
   {
     pinkBack.color = 0xFF6620AD;
 
-    parappaBackingCard.visible = true;
     darkRedDots.visible = true;
     orangeDots.visible = true;
     YellowDots.visible = true;
@@ -180,39 +161,5 @@ class ParappaCard extends BackingCard
     darkRedDots.visible = false;
     orangeDots.visible = false;
     YellowDots.visible = false;
-  }
-
-  override public function update(elapsed:Float):Void
-  {
-    super.update(elapsed);
-    var scrollProgress:Float = Math.abs(scrollTop.x % (scrollTop.frameWidth + 20));
-  }
-}rollTop.visible = true;
-    scrollLower.visible = true;
-    glow.visible = true;
-
-    cardGlow.visible = true;
-    FlxTween.tween(cardGlow, {alpha: 0, "scale.x": 1.2, "scale.y": 1.2}, 0.45, {ease: FlxEase.sineOut});
-  }
-
-  public override function disappear():Void
-  {
-    FlxTween.color(pinkBack, 0.25, 0xFF98A2F3, 0xFFFFD0D5, {ease: FlxEase.quadOut});
-
-    backLines.visible = false;
-    scrollTop.visible = false;
-    scrollLower.visible = false;
-    glow.visible = false;
-
-    cardGlow.visible = true;
-    cardGlow.alpha = 1;
-    cardGlow.scale.set(1, 1);
-    FlxTween.tween(cardGlow, {alpha: 0, "scale.x": 1.2, "scale.y": 1.2}, 0.25, {ease: FlxEase.sineOut});
-  }
-
-  override public function update(elapsed:Float):Void
-  {
-    super.update(elapsed);
-    var scrollProgress:Float = Math.abs(scrollTop.x % (scrollTop.frameWidth + 20));
   }
 }
