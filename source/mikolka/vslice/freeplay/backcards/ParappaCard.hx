@@ -20,11 +20,6 @@ class ParappaCard extends BackingCard
   var YellowDots:FlxSprite;
 
   var confirmAtlas:FlxAtlasSprite;
-  
-  public override function applyExitMovers(?exitMovers:FreeplayState.ExitMoverData, ?exitMoversCharSel:FreeplayState.ExitMoverData):Void
-  {
-    super.applyExitMovers(exitMovers, exitMoversCharSel);
-    if (exitMovers == null || exitMoversCharSel == null) return;
 
   public override function init():Void
   {
