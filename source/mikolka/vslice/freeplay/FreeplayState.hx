@@ -5,6 +5,7 @@ import mikolka.vslice.charSelect.CharSelectSubState;
 import openfl.filters.ShaderFilter;
 import mikolka.vslice.freeplay.backcards.PicoCard;
 import mikolka.vslice.freeplay.backcards.SpookyCard;
+import mikolka.vslice.freeplay.backcards.MiguelCard;
 import mikolka.vslice.freeplay.backcards.TankmanCard;
 import mikolka.vslice.freeplay.backcards.NewCharacterCard;
 import mikolka.vslice.freeplay.backcards.PicoCard;
@@ -289,6 +290,8 @@ class FreeplayState extends MusicBeatSubstate
 				backingCard = new SpookyCard(currentCharacter);
 			case 'tankman':
 				backingCard = new TankmanCard(currentCharacter);
+			case 'miguel':
+				backingCard = new MiguelCard(currentCharacter);
 			default:
 				backingCard = new BackingCard(currentCharacter);
 		}
